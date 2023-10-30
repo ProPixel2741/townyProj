@@ -8,6 +8,8 @@ import commands.rankup;
 import config.ConfigValues;
 import events.newTownCreation;
 import listener.DepositListener;
+import listener.VaultPreventClickEvent;
+import mc.obliviate.inventory.InventoryAPI;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -29,6 +31,7 @@ public class MyPlugin extends JavaPlugin implements Listener {
         instance = this;
         configValues = new ConfigValues(instance);
         Bukkit.getServer().getConsoleSender().sendMessage("Overflow Config: " + configValues.getConfigOverflowRequirements());
+        new InventoryAPI(this).init();
         listOfTownsRequirements = new ListOfTownsRequirements();
         setupEconomy();
         for (Town town : TownyUniverse.getInstance().getTowns()) {
@@ -49,6 +52,7 @@ public class MyPlugin extends JavaPlugin implements Listener {
         }
         getServer().getPluginManager().registerEvents(new DepositListener(), this);
         getServer().getPluginManager().registerEvents(new newTownCreation(), this);
+        getServer().getPluginManager().registerEvents(new VaultPreventClickEvent(), this);
         TownyCommandAddonAPI.addSubCommand(TownyCommandAddonAPI.CommandType.TOWN, "rankup", new rankup());
         TownyCommandAddonAPI.addSubCommand(TownyCommandAddonAPI.CommandType.TOWN, "vault", new Vault());
     }
