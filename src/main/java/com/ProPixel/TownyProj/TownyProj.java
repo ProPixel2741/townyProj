@@ -1,18 +1,28 @@
 package com.ProPixel.TownyProj;
 
-import WrappedTownObjects.ListOfTownWrappers;
-import WrappedTownObjects.TownWrapper;
+import Cmds.VaultSubCmd;
+import NonCommandListeners.VaultDeposit;
+import TownObjects.ListWrapperTowns;
+import TownObjects.WrapperTown;
+import com.palmergames.bukkit.towny.TownyCommandAddonAPI;
 import com.palmergames.bukkit.towny.TownyUniverse;
 import com.palmergames.bukkit.towny.object.Town;
+import mc.obliviate.inventory.InventoryAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TownyProj extends JavaPlugin {
 
-    public static ListOfTownWrappers listOfTownWrappers;
+    public static ListWrapperTowns listWrapperTowns;
+    public static TownyProj instance;
     @Override
     public void onEnable() {
+        instance = this;
+        new InventoryAPI(this).init();
+        listWrapperTowns = new ListWrapperTowns();
         initializeTowns();
+        getServer().getPluginManager().registerEvents(new VaultDeposit(), this);
+        TownyCommandAddonAPI.addSubCommand(TownyCommandAddonAPI.CommandType.TOWN, "vault", new VaultSubCmd());
     }
 
     @Override
@@ -43,8 +53,7 @@ public class TownyProj extends JavaPlugin {
     }
 
     private void initializeWrappedTownObjects(Town town) {
-        TownWrapper townWrapper = new TownWrapper(town);
-        listOfTownWrappers.addTownWrapper(townWrapper);
+        WrapperTown wrapperTown = new WrapperTown(town);
+        listWrapperTowns.addWrapperTown(wrapperTown);
     }
-
 }
