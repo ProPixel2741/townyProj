@@ -1,4 +1,4 @@
-package utils;
+package MiscUtils;
 
 import io.papermc.paper.enchantments.EnchantmentRarity;
 import net.kyori.adventure.text.Component;
@@ -14,12 +14,12 @@ import java.util.Set;
 
 public class EmptyEnchant extends Enchantment {
 
-    public EmptyEnchant(NamespacedKey key) {
+    public EmptyEnchant(@NotNull NamespacedKey key) {
         super(key);
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return null;
     }
 
@@ -34,7 +34,7 @@ public class EmptyEnchant extends Enchantment {
     }
 
     @Override
-    public EnchantmentTarget getItemTarget() {
+    public @NotNull EnchantmentTarget getItemTarget() {
         return null;
     }
 
@@ -49,12 +49,12 @@ public class EmptyEnchant extends Enchantment {
     }
 
     @Override
-    public boolean conflictsWith(Enchantment enchantment) {
+    public boolean conflictsWith(@NotNull Enchantment enchantment) {
         return false;
     }
 
     @Override
-    public boolean canEnchantItem(ItemStack itemStack) {
+    public boolean canEnchantItem(@NotNull ItemStack itemStack) {
         return false;
     }
 
