@@ -2,6 +2,7 @@ package TownObjects.Current;
 
 import TownObjects.BundleItemStack;
 import TownObjects.Remaining.RemItems;
+import TownObjects.Requirements.ReqItems;
 
 public class CurItems {
     private Integer amount;

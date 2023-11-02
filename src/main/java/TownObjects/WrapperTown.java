@@ -1,5 +1,6 @@
 package TownObjects;
 
+import TownObjects.Requirements.ReqMoney;
 import com.palmergames.bukkit.towny.object.Town;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -13,11 +14,20 @@ public class WrapperTown {
     private Integer townLevel;
     private List<BundleItemStack> bundleItemStackList;
 
+    private ReqMoney reqMoney;
+
     public WrapperTown(Town town) {
         this.town = town;
         this.townLevel = town.getManualTownLevel();
         bundleItemStackList = new ArrayList<>();
         initializeItemStackBundles();
+        initializeMoneyBundle();
+    }
+
+    private void initializeMoneyBundle() {
+        if (townLevel >= 1) {
+            reqMoney = new ReqMoney(townLevel * 100);
+        }
     }
 
     private void initializeItemStackBundles() {
@@ -29,6 +39,9 @@ public class WrapperTown {
         }
         if (townLevel >= 10) {
             addItemStackBundle(new ItemStack(Material.NETHERITE_INGOT, Math.floorDiv(townLevel, 10)));
+        }
+        if (townLevel == 8) {
+            addItemStackBundle(new ItemStack(Material.NETHER_STAR, 1));
         }
     }
 
@@ -42,6 +55,10 @@ public class WrapperTown {
 
     public Integer getTownLevel() {
         return townLevel;
+    }
+
+    public List<BundleItemStack> getBundleItemStackList() {
+        return bundleItemStackList;
     }
 
     public BundleItemStack getBundleItemStack(ItemStack itemStack) {
@@ -81,5 +98,9 @@ public class WrapperTown {
             itemStackList.add(itemStack);
         }
         return itemStackList;
+    }
+
+    public Integer getMoneyRequired() {
+        return reqMoney.getMoney();
     }
 }

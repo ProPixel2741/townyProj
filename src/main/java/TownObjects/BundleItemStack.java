@@ -33,4 +33,5 @@ public class BundleItemStack {
     public CurItems getCurItems() {
         return curItems;
     }
+
 }
