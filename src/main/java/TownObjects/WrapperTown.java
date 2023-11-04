@@ -2,8 +2,11 @@ package TownObjects;
 
 import TownObjects.Requirements.ReqMoney;
 import com.palmergames.bukkit.towny.object.Town;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +17,15 @@ public class WrapperTown {
     private Integer townLevel;
     private List<BundleItemStack> bundleItemStackList;
 
+    private OverflowItemStacks overflowItemStacks;
+
     private ReqMoney reqMoney;
 
     public WrapperTown(Town town) {
         this.town = town;
         this.townLevel = town.getManualTownLevel();
         bundleItemStackList = new ArrayList<>();
+        overflowItemStacks = new OverflowItemStacks();
         initializeItemStackBundles();
         initializeMoneyBundle();
     }
@@ -70,6 +76,24 @@ public class WrapperTown {
         return null;
     }
 
+    public List<ItemStack> getDisplayBundleItemStackList() {
+        List<ItemStack> itemStackList = new ArrayList<>();
+        for (BundleItemStack bundleItemStack : bundleItemStackList) {
+            ItemStack displayItemStack = new ItemStack(bundleItemStack.getItemStack().getType(), 1);
+
+            ItemMeta displayMeta = displayItemStack.getItemMeta();
+            List<String> displayList = new ArrayList<>();
+            displayList.add("§c Required Amount: " + bundleItemStack.getReqItems().getAmount());
+            displayList.add("§6 Remaining Amount: " + bundleItemStack.getRemItems().getAmount());
+            displayList.add("§a Deposited Amount: " + bundleItemStack.getCurItems().getAmount());
+            displayMeta.setLore(displayList);
+            displayItemStack.setItemMeta(displayMeta);
+
+            itemStackList.add(displayItemStack);
+        }
+        return itemStackList;
+    }
+
     public List<ItemStack> getRequirementsItemStackList() {
         List<ItemStack> itemStackList = new ArrayList<>();
         for (BundleItemStack bundleItemStack : bundleItemStackList) {
@@ -102,5 +126,15 @@ public class WrapperTown {
 
     public Integer getMoneyRequired() {
         return reqMoney.getMoney();
+    }
+
+    public OverflowItemStacks getOverflowItemStacks() {
+        try {
+            return overflowItemStacks;
+        } catch (Exception e) {
+            Bukkit.getServer().getConsoleSender().sendMessage("No existing overflow.");
+            overflowItemStacks = new OverflowItemStacks();
+            return overflowItemStacks;
+        }
     }
 }

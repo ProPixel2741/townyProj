@@ -82,6 +82,9 @@ public class ListWrapperTowns {
         //get excess
         ExcessItemStacksForLevelUp excess = new ExcessItemStacksForLevelUp(wrapperTown);
 
+
+        OverflowItemStacks existingOverflowBeforeLevelup = wrapperTown.getOverflowItemStacks();
+
         wrapperTownList.remove(wrapperTown);
         wrapperTown.getTown().setManualTownLevel(wrapperTown.getTown().getManualTownLevel() + 1);
         wrapperTown.getTown().save();
@@ -96,7 +99,14 @@ public class ListWrapperTowns {
                 matchingBundleItemStack.getCurItems().addAmount(matchingBundleItemStack, excessItemStack.getAmount());
             } catch (Exception e) {
                 Bukkit.getServer().getConsoleSender().sendMessage("No BundleItemStack Found!");
+                Bukkit.getServer().getConsoleSender().sendMessage("Putting in Vault Overflow");
+                leveledUpTownWrapper.getOverflowItemStacks().addOverflowItemStack(excessItemStack);
             }
+        }
+
+        for (ItemStack overflow : existingOverflowBeforeLevelup.getOverflowItemStackList()) {
+            leveledUpTownWrapper.getOverflowItemStacks().addOverflowItemStack(overflow);
+            Bukkit.getServer().getConsoleSender().sendMessage("Maintained overflow of: " + overflow.getType() + " : " + overflow.getAmount());
         }
     }
 }

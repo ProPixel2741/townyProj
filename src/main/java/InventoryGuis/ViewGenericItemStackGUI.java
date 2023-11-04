@@ -30,7 +30,7 @@ public class ViewGenericItemStackGUI extends Gui {
             ItemStack itemStack = itemStackListToView.get(i);
             if (itemStack.getAmount() > 64) {
                 ItemMeta itemMeta = itemStack.getItemMeta();
-                itemMeta.setDisplayName(ChatColor.GOLD + "" + itemStackListToView.get(i).getAmount() + " deposited");
+                itemMeta.setDisplayName(ChatColor.GOLD + "" + itemStackListToView.get(i).getAmount());
                 itemMeta.setDisplayName(ChatColor.BOLD + itemMeta.getDisplayName());
                 itemStack.setItemMeta(itemMeta);
                 EmptyEnchant emptyEnchant = new EmptyEnchant(NamespacedKey.fromString("key"));
