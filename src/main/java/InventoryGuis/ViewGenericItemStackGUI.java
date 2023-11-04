@@ -15,8 +15,10 @@ import java.util.List;
 
 public class ViewGenericItemStackGUI extends Gui {
     List<ItemStack> itemStackListToView;
-    public ViewGenericItemStackGUI(@NotNull Player player, @NotNull String id, String title, int rows, List<ItemStack> itemStackListToView) {
+    String displayName;
+    public ViewGenericItemStackGUI(@NotNull Player player, @NotNull String id, String title, int rows, List<ItemStack> itemStackListToView, String displayName) {
         super(player, id, title, rows);
+        this.displayName = displayName;
         this.itemStackListToView = itemStackListToView;
     }
 
@@ -30,7 +32,7 @@ public class ViewGenericItemStackGUI extends Gui {
             ItemStack itemStack = itemStackListToView.get(i);
             if (itemStack.getAmount() > 64) {
                 ItemMeta itemMeta = itemStack.getItemMeta();
-                itemMeta.setDisplayName(ChatColor.GOLD + "" + itemStackListToView.get(i).getAmount());
+                itemMeta.setDisplayName(displayName + ": " + itemStackListToView.get(i).getAmount());
                 itemMeta.setDisplayName(ChatColor.BOLD + itemMeta.getDisplayName());
                 itemStack.setItemMeta(itemMeta);
                 EmptyEnchant emptyEnchant = new EmptyEnchant(NamespacedKey.fromString("key"));

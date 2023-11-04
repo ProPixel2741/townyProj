@@ -50,31 +50,31 @@ public class VaultSubCmd implements CommandExecutor, Listener {
             if (args[0].equalsIgnoreCase("view")) {
                 if (args.length == 1) {
                     player.sendMessage("view");
-                    ViewGenericItemStackGUI genericBundleView = new ViewGenericItemStackGUI(player, "VAULTVIEW", "§7§lVAULT VIEW", 6, wrapperTown.getDisplayBundleItemStackList());
+                    ViewGenericItemStackGUI genericBundleView = new ViewGenericItemStackGUI(player, "VAULTVIEW", "§7§lVAULT VIEW", 6, wrapperTown.getDisplayBundleItemStackList(), "");
                     genericBundleView.open();
                     return false;
                 }
                 if (args.length >= 2) {
                     if (args[1].equalsIgnoreCase("deposits") || args[1].equalsIgnoreCase("dep")) {
                         player.sendMessage("view deposits");
-                        ViewGenericItemStackGUI depositView = new ViewGenericItemStackGUI(player, "VAULTDEPOSITVIEW", "§7§lVAULT DEPOSIT VIEW. §6§lUse /t vault deposit", 6, wrapperTown.getCurrentItemStackList());
+                        ViewGenericItemStackGUI depositView = new ViewGenericItemStackGUI(player, "VAULTDEPOSITVIEW", "§7§lVAULT DEPOSIT VIEW. §6§lUse /t vault deposit", 6, wrapperTown.getCurrentItemStackList(), "§7§lDEPOSITED");
                         depositView.open();
                         return false;
                     }
                     if (args[1].equalsIgnoreCase("remaining") || args[1].equalsIgnoreCase("rem")) {
                         player.sendMessage("view remaining");
-                        ViewGenericItemStackGUI remainingView = new ViewGenericItemStackGUI(player, "VAULTREMAININGVIEW", "§7§lVAULT REMAINING VIEW", 6, wrapperTown.getRemainingItemStackList());
+                        ViewGenericItemStackGUI remainingView = new ViewGenericItemStackGUI(player, "VAULTREMAININGVIEW", "§7§lVAULT REMAINING VIEW", 6, wrapperTown.getRemainingItemStackList(), "§7§lREMAINING");
                         remainingView.open();
                         return false;
                     }
                     if (args[1].equalsIgnoreCase("requirements") || args[1].equalsIgnoreCase("req")) {
                         player.sendMessage("view requirements");
-                        ViewGenericItemStackGUI requirementsView = new ViewGenericItemStackGUI(player, "VAULTREQUIREMENTSVIEW", "§7§lVAULT REQUIREMENTS VIEW", 6, wrapperTown.getRequirementsItemStackList());
+                        ViewGenericItemStackGUI requirementsView = new ViewGenericItemStackGUI(player, "VAULTREQUIREMENTSVIEW", "§7§lVAULT REQUIREMENTS VIEW", 6, wrapperTown.getRequirementsItemStackList(), "§7§lREQUIREMENTS");
                         requirementsView.open();
                         return false;
                     }
                     if (args[1].equalsIgnoreCase("overflow") || args[1].equalsIgnoreCase("ofl")) {
-                        ViewGenericItemStackGUI overflowView = new ViewGenericItemStackGUI(player, "VAULTOVERFLOW", "§7§lVAULT OVERFLOW. §6§lUse /t vault getoverflow", 6, wrapperTown.getOverflowItemStacks().getOverflowItemStackList());
+                        ViewGenericItemStackGUI overflowView = new ViewGenericItemStackGUI(player, "VAULTOVERFLOW", "§7§lVAULT OVERFLOW. §6§lUse /t vault getoverflow", 6, wrapperTown.getOverflowItemStacks().getOverflowItemStackList(), "§7§lOVERFLOW");
                         overflowView.open();
                         return false;
                     }
